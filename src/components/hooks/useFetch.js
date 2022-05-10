@@ -1,25 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
-export const useFetch = ( url ) => {
-    
-    const [state, setState] = useState({ data: null, loading: true, error: null })
+export const useFetch = (url) => {
+  const isMounted = useRef(true);
+  const [state, setState] = useState({
+    data: null,
+    loading: true,
+    error: null,
+  });
 
-    useEffect(() => {
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
-        setState({ data: null, loading: true, error: null });
-      
-        fetch(url)
-            .then(resp => resp.json())
-            .then( data => {
-                setState({
-                    loading:false,
-                    error: null,
-                    data
-                })
-            });
+  useEffect(() => {
+    setState({ data: null, loading: true, error: null });
 
-    }, [url])
-    
-    return state;
+    fetch(url)
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (isMounted.current) {
+          setState({
+            loading: false,
+            error: null,
+            data,
+          });
+        } else {
+          console.log("setState no se llamo");
+        }
+      });
+  }, [url]);
 
-}
+  return state;
+};
