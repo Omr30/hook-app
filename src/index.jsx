@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { MemomHook } from './components/06-memos/MemoHook'
+import { CallbackHooks } from './components/06-memos/CallbackHooks'
+// import { MemomHook } from './components/06-memos/MemoHook'
 // import { Memorize } from './components/06-memos/Memorize'
 // import { Layout } from './components/05-useLayoutEffect/Layout'
 // import { RealExampleRef } from './components/04-useRef/RealExampleRef'
@@ -15,6 +16,6 @@ import { MemomHook } from './components/06-memos/MemoHook'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
-    <MemomHook />
+    <CallbackHooks />
   </>
 )
